@@ -148,6 +148,6 @@ if ($_SESSION['tip_usu']==2||!isset($_SESSION['tip_usu'])){
         </div>
     </section>
     
-</body>
+</body> 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </html>

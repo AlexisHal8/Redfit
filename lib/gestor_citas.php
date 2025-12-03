@@ -10,7 +10,7 @@ function agendar_cita($id_medico, $id_cliente, $fecha, $hora, $motivo){
     mysqli_stmt_close($stmt);
     return $exito;
 }
-
+ 
 function obtener_citas_medico($id_medico){
     global $conn;
     $sql = "SELECT c.*, m.nom_usr as cliente 

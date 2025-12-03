@@ -12,7 +12,7 @@ function crear_receta($nombre, $ingredientes, $desc, $preparacion, $calorias, $i
     mysqli_stmt_close($stmt);
     return $exito;
 }
-
+ 
 function modificar_receta($id_receta, $nombre, $ingredientes, $desc, $preparacion, $calorias){
     global $conn;
     $sql = "UPDATE recetas SET nombre=?, ingredientes=?, descripcion=?, preparacion=?, calorias=? WHERE id_receta=?";

@@ -13,6 +13,6 @@ Cuatro archivos de la parte de admin
 Se modificó el index.php
 Ahora tiene los botones en el medio, además de que la barra de arriba ya tiene la integración para que pueda entrar
 a otros apartados.
-
+ 
 La base de datos se cambió.
 En el archivo, digo desde que parte ahora es distinta. Se agregaron tres tablas

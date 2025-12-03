@@ -111,4 +111,4 @@ if(isset($_GET['editar_id'])){
     </div>
     <script src="../assets/js/bootstrap.min.js"></script>
 </body>
-</html>
+</html> 

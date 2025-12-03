@@ -78,7 +78,7 @@ CREATE TABLE plan_semanal (
     UNIQUE KEY unique_plan (id_cliente, dia_semana, tipo_comida) -- Evita duplicar comidas el mismo día/hora
 );
 
--- Tabla para Citas
+-- Tabla p ara Citas
 CREATE TABLE citas (
     id_cita INT AUTO_INCREMENT PRIMARY KEY,
     id_medico INT NOT NULL,
