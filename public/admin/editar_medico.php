@@ -13,27 +13,32 @@ exit();
     <link rel="stylesheet" href="../assets/css/bootstrap.css">
     <link rel="stylesheet" href="../assets/css/bootstrap-icons.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
 </head>
 
 <body>
+    <?php require_once __DIR__. '/nav.php' ?>
     <!-- CONTENIDO -->
     <main class="d-flex">
-        <?php require_once __DIR__. '/menu-1.php' ?>
         <div id="admin-main" class="p-4">
+            <h1>Modificar medicos</h1>
+            <a href=./medicos.php class="btn btn-primary"><i class="bi bi-arrow-return-left me-2 fs-5"></i></a>
             
             
     <?php 
-        if(!isset($_GET['id_prod'])){
+        if(!isset($_GET['id_usr'])){
+            echo '<div class="alert alert-danger">Error: No se proporcionó un ID de usuario.</div>';
 
         }else{
             require_once __DIR__.'/../../config/db.php';
-            $id_prod=(int)$_GET['id_prod'];
-            $sql = "SELECT * FROM catalogo WHERE id_prod = ?";
+            $id_usr=(int)$_GET['id_usr'];
+            $sql = "SELECT * FROM medico WHERE id_usr = ?";
             $select_preparado=mysqli_prepare($conn,$sql);
-            mysqli_stmt_bind_param($select_preparado,'i',$id_prod);
+            mysqli_stmt_bind_param($select_preparado,'i',$id_usr);
             mysqli_stmt_execute($select_preparado);
             $resultado=mysqli_stmt_get_result($select_preparado);
             if(!$resultado||mysqli_num_rows($resultado)!=1){
+                echo '<div class="alert alert-danger">Error: El médico no existe o no se encontró.</div>';
 
             }
             else{
@@ -42,26 +47,19 @@ exit();
                 //llenar el formulario
                 ?>
                 <form id="productsForm" class="need-caliadtion border rounded p-3 bg-white" novalidate>
-                    <input type="hidden" name="id_prod" value="<?= $fila_db['id_prod'] ?>">
+                    <input type="hidden" name="id_usr" value="<?= $fila_db['id_usr'] ?>">
             <div class="row g-3">
                 <div class="col-md-6">
-                    <label for="form-label">Nombre del producto</label>
-                    <input type="text"id="nom_prod" name="nom_prod" class="form-control" placeholder="Ej. Curso de Front End" minlength="2" maxlength="255" value="<?=htmlspecialchars($fila_db['nom_prod'])?>" required>
+                    <label for="form-label">Nombre del medico</label>
+                    <input type="text"id="nom_usr" name="nom_usr" class="form-control" placeholder="Ej. Juan Alfredo" minlength="2" maxlength="100" value="<?=htmlspecialchars($fila_db['nom_usr'])?>" required>
                     <div class="valid-feedback">Nombre valido.</div>
-                    <div class="invalid-feedback">Nombre no valido usa 2-255 caracteres.</div>
+                    <div class="invalid-feedback">Nombre no valido usa 2-100 caracteres.</div>
                 </div>
                 <div class="col-md-3">
-                <label class="form-label">Precio</label>
-                <input type="number" name="prec" id="prec" class="form-control" min="1" step="0.01" placeholder="El. 499.00" value="<?=htmlspecialchars($fila_db['prec'])?>" required>
-                <div class="valid-feedback">Precio valido.</div>
-                    <div class="invalid-feedback">Ingresa un precio valido (mayor a 0, con 2 decimales).</div>
-
-            </div>
-            <div class="col-md-3">
-                <label class="form-label">Stock</label>
-                <input type="number" name="stock" id="stock" class="form-control" min="0" step="1" placeholder="El. 25" value="<?=htmlspecialchars($fila_db['stock'])?>" required>
-                <div class="valid-feedback">Stock valido.</div>
-                    <div class="invalid-feedback">Ingresa un stock mayor o igual a cero.</div>
+                <label class="form-label">Telefono</label>
+                <input type="text" name="numero" id="numero" class="form-control"  placeholder="El. 422" value="<?=htmlspecialchars($fila_db['numero'])?>" required>
+                <div class="valid-feedback">numero valido.</div>
+                    <div class="invalid-feedback">Ingresa un numero valido.</div>
 
             </div>
             </div>
@@ -86,10 +84,10 @@ exit();
                 
 
             <div class="col-12">
-                <label class="form-label">Descripcion</label>
-                <textarea name="desc" id="desc" rows="4" class="form-control" minlenght="20" maxlength="500" placeholder="Describe el producto..." required><?=htmlspecialchars($fila_db['desc'])?></textarea>
+                <label class="form-label">Direccion</label>
+                <textarea name="dir" id="dir" rows="4" class="form-control" minlenght="10" maxlength="50" placeholder="Describe el producto..." required><?=htmlspecialchars($fila_db['dir_usr'])?></textarea>
                 <div class="valid-feedback">Ok.</div>
-                <div class="invalid-feedback">Escribe entre 20 y 500 caracteres.</div>
+                <div class="invalid-feedback">Escribe entre 10 y 50 caracteres.</div>
                 <div class="col-12 mt-3">
                     <button class="btn btn-primary" type="submit" name="accion" value="editar">Modificar</button>
                     
@@ -122,7 +120,7 @@ exit();
                 e.preventDefault();
                 e.stopPropagation();
             }else{
-                form.action='../../lib/gestor_producto.php';
+                form.action='../../lib/gestor_medico.php';
                 form.method='post';
             }
             form.classList.add('was-validated');

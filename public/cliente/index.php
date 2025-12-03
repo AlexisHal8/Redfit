@@ -20,6 +20,7 @@ exit();
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="body">
+    <?php require_once __DIR__. '/menu-1.php' ?>
     <style>
             @media (min-width: 760px) {
             #menuLateral .nav-link {
@@ -33,58 +34,48 @@ exit();
            
         }
     </style>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-black">
-        <div class="container-fluid px-4">
-            <a class="navbar-brand d-flex align-items-center align-self-center" href="#">
-                <img src="assets/img/miniredfit.png" alt="Logo" class="icon-nav" style="height:60px;">
-            </a>
-
-            <!-- Botón hamburguesa -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral"
-                aria-controls="menuLateral">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- Menú colapsable -->
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="menuLateral">
-                <div class="offcanvas-header bg-black">
-                    <h5 class="offcanvas-title text-white">Menú</h5>
-                    <button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body bg-black">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item m-3">
-                            <a class="nav-link fw-semibold d-flex align-items-center" href="#">
-                        <i class="bi bi-chat-text-fill me-2 fs-5"></i> Chats
-                            </a>
-                        </li>
-                        <li class="nav-item m-3">
-                            <a class="nav-link fw-semibold d-flex align-items-center" href="#">
-                            <i class="bi bi-people-fill me-2 fs-5"></i> Gestionar clientes
-                            </a>
-                        </li>
-                        <li class="nav-item m-3">
-                            <a class="nav-link fw-semibold d-flex align-items-center" href="#">
-                            <i class="bi bi-calendar-check-fill me-2 fs-5"></i> Gestionar citas
-                            </a>
-                            </li>
-                        <li class="nav-item m-3">
-                            <a class="nav-link fw-semibold d-flex align-items-center" href="#">
-                            <i class="bi bi-clipboard2-pulse-fill me-2 fs-5"></i> Gestionar recetas
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-    </nav>
     <section>
         <img src="assets/img/Redfit.png" class="logo" alt="">
     </section>
-    <section class="container">
-        <div class="container row mt-5 login">
-            <h1>Panel de Cliente</h1>
+    <section class="container mb-5">
+        <h1 class="mt-4 text-center">Bienvenido al panel de Médico</h1>
+        <p class="text-center lead">Desde aquí puedes gestionar tus citas, ver tus recetas y comunicarte con tus clientes.</p>
+        
+        <div class="row mt-5">
+            
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm text-center p-4">
+                    <div class="card-body">
+                        <i class="bi bi-journal-plus text-primary display-4 mb-3"></i>
+                        <h5 class="card-title">Gestión de Recetas</h5>
+                        <p class="card-text">Crea, edita y consulta el catálogo de recetas alimenticias disponibles.</p>
+                        <a href="recetas_gestion.php" class="btn btn-primary w-100">Administrar Recetas</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm text-center p-4">
+                    <div class="card-body">
+                        <i class="bi bi-calendar-range text-success display-4 mb-3"></i>
+                        <h5 class="card-title">Asignar Planes</h5>
+                        <p class="card-text">Asigna dietas semanales personalizadas a tus clientes.</p>
+                        <a href="recetas_asignar.php" class="btn btn-success w-100">Asignar Dieta</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm text-center p-4">
+                    <div class="card-body">
+                        <i class="bi bi-calendar-check text-warning display-4 mb-3"></i>
+                        <h5 class="card-title">Agenda de Citas</h5>
+                        <p class="card-text">Consulta tus citas programadas y agenda nuevas sesiones.</p>
+                        <a href="citas.php" class="btn btn-warning text-dark w-100">Gestionar Citas</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
     
