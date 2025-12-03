@@ -33,58 +33,14 @@ exit();
            
         }
     </style>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-black">
-        <div class="container-fluid px-4">
-            <a class="navbar-brand d-flex align-items-center align-self-center" href="#">
-                <img src="assets/img/miniredfit.png" alt="Logo" class="icon-nav" style="height:60px;">
-            </a>
-
-            <!-- Botón hamburguesa -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral"
-                aria-controls="menuLateral">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- Menú colapsable -->
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="menuLateral">
-                <div class="offcanvas-header bg-black">
-                    <h5 class="offcanvas-title text-white">Menú</h5>
-                    <button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body bg-black">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item m-3">
-                            <a class="nav-link fw-semibold d-flex align-items-center" href="#">
-                        <i class="bi bi-chat-text-fill me-2 fs-5"></i> Chats
-                            </a>
-                        </li>
-                        <li class="nav-item m-3">
-                            <a class="nav-link fw-semibold d-flex align-items-center" href="#">
-                            <i class="bi bi-people-fill me-2 fs-5"></i> Gestionar clientes
-                            </a>
-                        </li>
-                        <li class="nav-item m-3">
-                            <a class="nav-link fw-semibold d-flex align-items-center" href="#">
-                            <i class="bi bi-calendar-check-fill me-2 fs-5"></i> Gestionar citas
-                            </a>
-                            </li>
-                        <li class="nav-item m-3">
-                            <a class="nav-link fw-semibold d-flex align-items-center" href="#">
-                            <i class="bi bi-clipboard2-pulse-fill me-2 fs-5"></i> Gestionar recetas
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-    </nav>
+    <?php require_once __DIR__. '/nav.php' ?>
     <section>
         <img src="assets/img/Redfit.png" class="logo" alt="">
     </section>
     <section class="container">
         <div class="container row mt-5 login">
-            <h1>Panel de Cliente</h1>
+            <h1 class="mt-4">Bienvenido al panel de medico</h1>
+        <p>Desde aquí puedes gestionar tus citas, ver tus recetas y comunicarte con tus clientes.</p>
         </div>
     </section>
     

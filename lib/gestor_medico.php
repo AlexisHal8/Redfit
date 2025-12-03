@@ -4,7 +4,7 @@
 require_once __DIR__.'/../config/db.php';
 function mostrar_productos(){
     global $conn;
-    $sql="SELECT * FROM catalogo";
+    $sql="SELECT * FROM medico";
     $select_preparado= mysqli_prepare($conn, $sql);
     mysqli_stmt_execute($select_preparado);
 
@@ -21,9 +21,9 @@ function mostrar_productos(){
     
 }
 
-function agregar_producto($nom_prod, $desc, $prec, $img, $stock, $estatus){
+function agregar_producto($nom_usr, $mail, $pass, $dir_usr, $tip_usu, $numero, $cedula, $img, $estatus){
     global $conn;
-    $sql="INSERT INTO catalogo (nom_prod, `desc`, prec, img, estatus, stock) VALUES (?,?,?,?,?,?)";
+    $sql="INSERT INTO medico (nom_usr, `mail`, pass, dir_usr, tip_usu, numero, cedula, img, estatus) VALUES (?,?,?,?,?,?,?,?,?)";
     $insert_preparado=mysqli_prepare($conn, $sql);
     
     if(!$insert_preparado){
@@ -35,7 +35,7 @@ function agregar_producto($nom_prod, $desc, $prec, $img, $stock, $estatus){
 
     }
 
-    mysqli_stmt_bind_param($insert_preparado, 'ssdsii',$nom_prod, $desc, $prec, $img, $stock, $estatus);
+    mysqli_stmt_bind_param($insert_preparado, 'ssssisssi',$nom_usr, $mail, $pass, $dir_usr, $tip_usu, $numero, $cedula, $img, $estatus);
     $query_ok=mysqli_stmt_execute($insert_preparado); //True o False 
 
     $rows_ok =mysqli_affected_rows($conn); //0>1
@@ -43,7 +43,7 @@ function agregar_producto($nom_prod, $desc, $prec, $img, $stock, $estatus){
     if($query_ok && $rows_ok > 0){
         return [
             'estatus'=>'msg',
-            'mensaje'=>'producto agregado correctamente'
+            'mensaje'=>'medico agregado correctamente'
         ];
 
     }else{
@@ -55,12 +55,10 @@ function agregar_producto($nom_prod, $desc, $prec, $img, $stock, $estatus){
     }
 
 }
-// $resultado=agregar_producto('Curso C++', 'curso expres para aprender c', '400', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1067px-ISO_C%2B%2B_Logo.svg.png', '40', '1');
-// print_r($resultado);
 
-function eliminar_producto($id_prod){
+function eliminar_producto($id_usr){
     global $conn;
-    $sql="DELETE FROM catalogo WHERE id_prod=?";
+    $sql="DELETE FROM medico WHERE id_usr=?";
     $delete_preparado=mysqli_prepare($conn, $sql);
 
 
@@ -72,7 +70,7 @@ function eliminar_producto($id_prod){
         ];
 
     }
-    mysqli_stmt_bind_param($delete_preparado, 'i', $id_prod);
+    mysqli_stmt_bind_param($delete_preparado, 'i', $id_usr);
     $query_ok=mysqli_stmt_execute($delete_preparado); //True o False 
 
     $rows_ok =mysqli_affected_rows($conn); //0>1
@@ -93,9 +91,9 @@ function eliminar_producto($id_prod){
 
 }
 
-function modificar_producto($nom_prod, $desc, $prec, $img, $estatus, $stock, $id){
+function modificar_producto($nom_usr, $numero, $img, $estatus, $direccion, $id_usr){
     global $conn;
-    $sql="UPDATE catalogo SET nom_prod=?, `desc`=?, prec=?, img=?, estatus=?, stock=? WHERE id_prod=?";
+    $sql="UPDATE medico SET nom_usr=?, numero=?, img=?, estatus=?, dir_usr=? WHERE id_usr=?";
     $insert_preparado=mysqli_prepare($conn, $sql);
     
     if(!$insert_preparado){
@@ -107,7 +105,7 @@ function modificar_producto($nom_prod, $desc, $prec, $img, $estatus, $stock, $id
 
     }
 
-    mysqli_stmt_bind_param($insert_preparado, 'ssdsiii',$nom_prod, $desc, $prec, $img, $stock, $estatus, $id);
+    mysqli_stmt_bind_param($insert_preparado, 'sssisi',$nom_usr, $numero, $img, $estatus, $direccion, $id_usr);
     $query_ok=mysqli_stmt_execute($insert_preparado); //True o False 
 
     $rows_ok =mysqli_affected_rows($conn); //0>1
@@ -134,35 +132,37 @@ function modificar_producto($nom_prod, $desc, $prec, $img, $estatus, $stock, $id
 
             switch($accion){
                 case 'agregar':
-                    if(isset($_POST['nom_prod'],$_POST['desc'],$_POST['prec'],$_POST['img'],$_POST['stock'])){
-                        $nom_prod=trim($_POST['nom_prod']);
-                        $desc=trim($_POST['desc']);
-                        $prec=(float)$_POST['prec'];
+                    if(isset($_POST['nom_med'],$_POST['mail'],$_POST['pass'],$_POST['img'],$_POST['num'],$_POST['cedula'],$_POST['dir'])){
+                        $nom_usr=trim($_POST['nom_med']);
+                        $mail=trim($_POST['mail']);
+                        $pass=trim($_POST['pass']);
+                        $dir_usr=trim($_POST['dir']);
+                        $tip_usu=2;
+                        $numero=trim($_POST['num']);
+                        $cedula=trim($_POST['cedula']);
                         $img=trim($_POST['img']);
-                        $stock=(int)$_POST['stock'];
                         $estatus=1;
 
 
-                        $resultado=agregar_producto($nom_prod,$desc,$prec, $img, $stock, $estatus);
-                        header('Location: ../public/admin/alta_productos.php?msg=' .urlencode($resultado['mensaje']));
+                        $resultado=agregar_producto($nom_usr, $mail, $pass, $dir_usr, $tip_usu, $numero, $cedula, $img, $estatus);
+                        header('Location: ../public/admin/alta_medicos.php?msg=' .urlencode($resultado['mensaje']));
                         exit;
 
 
                     }else{
-                        header('Location: ../public/admin/alta_productos.php?error=' .urlencode('Hubo un error en el formulario, favor de revisar los campos'));
+                        header('Location: ../public/admin/alta_medicos.php?error=' .urlencode('Hubo un error en el formulario, favor de revisar los campos'));
                         exit;
                     }
                     break;
                 case 'editar':
-                    if(isset($_POST['nom_prod'],$_POST['desc'],$_POST['prec'],$_POST['img'],$_POST['stock'],$_POST['id_prod'],$_POST['estatus'])){
-                        $id_prod=(int)$_POST['id_prod'];
-                        $nom_prod=trim($_POST['nom_prod']);
-                        $desc=trim($_POST['desc']);
-                        $prec=(float)$_POST['prec'];
+                    if(isset($_POST['id_usr'], $_POST['nom_usr'], $_POST['numero'], $_POST['img'], $_POST['estatus'], $_POST['dir'])){
+                        $id_usr=(int)$_POST['id_usr'];
+                        $nom_usr=trim($_POST['nom_usr']);
+                        $numero=trim($_POST['numero']);
                         $img=trim($_POST['img']);
-                        $stock=(int)$_POST['stock'];
                         $estatus=(int)$_POST['estatus'];
-                        $resultado=modificar_producto($nom_prod,$desc,$prec, $img, $stock, $estatus, $id_prod);
+                        $direccion=trim($_POST['dir']);
+                        $resultado=modificar_producto($nom_usr, $numero, $img, $estatus, $direccion, $id_usr);
                         echo"
                     <script>
                     alert('".$resultado['mensaje']."');
@@ -182,9 +182,9 @@ function modificar_producto($nom_prod, $desc, $prec, $img, $estatus, $stock, $id
                     }
                     break;
                 case 'eliminar':
-                    if(isset($_POST['id_prod'])){
-                        $id_prod=(int)$_POST['id_prod'];
-                        $resultado=eliminar_producto($id_prod);
+                    if(isset($_POST['id_usr'])){
+                        $id_usr=(int)$_POST['id_usr'];
+                        $resultado=eliminar_producto($id_usr);
                     echo"
                     <script>
                     alert('".$resultado['mensaje']."');
