@@ -57,6 +57,54 @@ CREATE table comentarios(
 
 );
 
+-- DESDE AQUÍ CAMBIA LA BASE DE DATOS 
+-- DESDE AQUÍ CAMBIA LA BASE DE DATOS -- DESDE AQUÍ CAMBIA LA BASE DE DATOS 
+-- DESDE AQUÍ CAMBIA LA BASE DE DATOS 
+
+-- Tabla para guardar las recetas creadas por los médicos
+CREATE TABLE recetas (
+    id_receta INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    ingredientes TEXT NOT NULL,
+    descripcion TEXT,
+    preparacion TEXT NOT NULL,
+    calorias INT NOT NULL,
+    id_medico INT NOT NULL, -- Quién creó la receta
+    fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabla para asignar recetas a clientes (Plan Semanal)
+CREATE TABLE plan_semanal (
+    id_plan INT AUTO_INCREMENT PRIMARY KEY,
+    id_medico INT NOT NULL,
+    id_cliente INT NOT NULL,
+    id_receta INT NOT NULL,
+    dia_semana ENUM('Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo') NOT NULL,
+    tipo_comida ENUM('Desayuno', 'Almuerzo', 'Comida', 'Cena') NOT NULL,
+    UNIQUE KEY unique_plan (id_cliente, dia_semana, tipo_comida) -- Evita duplicar comidas el mismo día/hora
+);
+
+-- Tabla p ara Citas
+CREATE TABLE citas (
+    id_cita INT AUTO_INCREMENT PRIMARY KEY,
+    id_medico INT NOT NULL,
+    id_cliente INT NOT NULL,
+    fecha_cita DATE NOT NULL,
+    hora_cita TIME NOT NULL,
+    motivo VARCHAR(255),
+    estatus ENUM('Pendiente', 'Confirmada', 'Cancelada') DEFAULT 'Pendiente'
+);
+
+-- DESDE AQUÍ TERMINAN LOS CAMBIOS 
+-- DESDE AQUÍ TERMINAN LOS CAMBIOS -- DESDE AQUÍ TERMINAN LOS CAMBIOS
+-- DESDE AQUÍ TERMINAN LOS CAMBIOS 
+
+-- Datos de ejemplo
+INSERT INTO medico
+VALUES
+(1, 'Sergio Altamira Mojarro', 'sergio@gmail.com', 'sergio01.', 'Av. Pie de la Cuesta 2501, Nacional, 76148 Santiago de Querétaro, Qro.', 1, 'AAMS060121', '12345678912'),  -- rol 1 = admin
+(2,'Asael Aljeandro',      'asa@gmail.com',      'abcd', 'Av. Pie de la Cuesta 2501, Nacional, 76148 Santiago de Querétaro, Qro.', 2, 'CEVA0606IT3', 'LJRA6112');  -- rol 2 = medico
+
 INSERT INTO `medico` (`nom_usr`, `mail`, `pass`, `dir_usr`, `tip_usu`, `numero`, `cedula`, `img`) VALUES
 ('Dra. Ana Martínez', 'ana.martinez@hospital.com', 'pass123', 'Av. Reforma 123, CDMX', 1, '5512345678', 'CED1234567', 'https://randomuser.me/api/portraits/women/44.jpg'),
 ('Dr. Carlos López', 'carlos.lopez@clinica.com', 'securePass', 'Calle 5 de Mayo 45, QRO', 1, '4429876543', 'CED9876543', 'https://randomuser.me/api/portraits/men/32.jpg'),

@@ -1,20 +1,19 @@
 <?php
 session_start();
 if ($_SESSION['tip_usu']==2||!isset($_SESSION['tip_usu'])){
-header('Location: ../login.php?error='.urlencode('Acceso no autorizado'));
-exit();
+    header('Location: ../login.php?error='.urlencode('Acceso no autorizado'));
+    exit();
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel</title>
+    <title>Panel Médico</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
-    <!-- Fuente Montserrat -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
@@ -31,7 +30,7 @@ exit();
             #menuLateral .nav-link:hover {
                 color: #A3B2BF !important;
             }
-           
+            
         }
     </style>
         <nav class="navbar navbar-expand-lg navbar-dark bg-black">
@@ -40,13 +39,11 @@ exit();
                 <img src="../assets/img/miniredfit.png" alt="Logo" class="icon-nav" style="height:60px;">
             </a>
 
-            <!-- Botón hamburguesa -->
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#menuLateral"
                 aria-controls="menuLateral">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Menú colapsable -->
             <div class="offcanvas offcanvas-end" tabindex="-1" id="menuLateral">
                 <div class="offcanvas-header bg-black">
                     <h5 class="offcanvas-title text-white">Menú</h5>
@@ -80,13 +77,12 @@ exit();
         </div>
     </nav>
     <section>
-        <img src="assets/img/Redfit.png" class="logo" alt="">
     </section>
     <section class="container mt-5">
         <h1 class="mt-4">Bienvenido al panel del administrador</h1>
         <p>Desde aquí puedes gestionar tus medicos, ver comentarios y gestionar objetivos.</p>
     </section>
     
-</body>
+</body> 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </html>
